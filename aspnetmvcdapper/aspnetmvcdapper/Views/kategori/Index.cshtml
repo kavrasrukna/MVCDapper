@@ -1,0 +1,34 @@
+﻿@model IEnumerable<aspnetmvcdapper.Models.kategorimodel>
+
+@{ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml"; }  <!--_mainlayout adında shared içine view oluşturdum. burayada urlsini ekledim-->
+
+<p>
+    @*@Html.ActionLink("Kategori Ekle", "ekle")*@ <!--link şeklinde -->
+    <button type="button" class="btn btn-info" onclick="location.href = '@Url.Action("ekle","kategori")'">Kategori Ekle</button><!--buton şeklinde -->
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.kategoriad)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.kategoriad)
+            </td>
+            <td>
+                @*@Html.ActionLink("Düzenle", "ekle", new { id = item.kategoriid })*@  <!--link şeklinde-->
+                @*@Html.ActionLink("Sil", "Delete", new { id = item.kategoriid })*@ <!--link şeklinde-->
+                <button type="button" class="btn btn-warning" onclick="location.href = '@Url.Action("ekle","kategori",new { id = item.kategoriid })'">Düzenle</button>
+                @*<button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("ekle","kategori", new { id = item.kategoriid }))'">Sil</button>*@ @*direk uyarı vermeden siler ve ındex sayfasına yönlendirir*@
+                @Html.ActionLink("Sil", "Delete", new { id = item.kategoriid }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek İsteğinizden Emin Misiniz?')" }) @*1.parametre adı butonda gözükecek ad,2.parametre gideceği yer*@
+            </td>         
+        </tr>
+    }
+
+</table>

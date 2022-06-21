@@ -1,0 +1,56 @@
+﻿@model IEnumerable<aspnetmvcdapper.Models.satismodel>
+@{ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml"; }  <!--_mainlayout adında shared içine view oluşturdum. burayada urlsini ekledim-->
+
+<p>
+    @*@Html.ActionLink("Yeni Satış Ekle", "ekle")*@
+    <button type="button" class="btn btn-info" onclick="location.href = '@Url.Action("ekle","satis")'">Satış Ekle</button><!--buton şeklinde -->
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.urunid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.musteriid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.adet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fiyat)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.urunid)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.musteriid)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.adet)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.fiyat)
+    </td>
+
+    <td>
+        @*@Html.ActionLink("Düzenle", "ekle", new { id = item.satisid })*@ <!--ekle ve Delete Controllerdaki metotların adı,Düzenle ve Sil Labelda görünecek ad-->
+        @*@Html.ActionLink("Sil", "Delete", new { id = item.satisid })*@
+
+        <button type="button" class="btn btn-warning" onclick="location.href = '@Url.Action("ekle","satis",new { id = item.satisid })'">Düzenle</button>
+        @*<button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("ekle","satis", new { id = item.satisid }))'">Sil</button>*@@*direk uyarı vermeden siler ve Index sayfasına yönlendirir*@
+        @Html.ActionLink("Sil", "Delete", new { id = item.satisid }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek İsteğinizden Emin Misiniz?')" }) @*1.parametre adı butonda gözükecek ad,2.parametre gideceği yer*@
+    </td>
+</tr>
+
+    }
+
+</table>
